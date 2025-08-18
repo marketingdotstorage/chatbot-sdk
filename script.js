@@ -6,7 +6,7 @@ let isOpen = false;
             <div class="chatbox-box" id="ms-chatbox-wrapper">
                 <div class="chatbox-header" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor}">
                     <div class="chatbot-avatar">
-                        <img src="./assets/chatbot-avatar.png" />
+                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                         <div class="chatbot-status">
                             <div>${window.STOR_BOT_CONFIG.botName}</div>
                             <div>
@@ -24,7 +24,7 @@ let isOpen = false;
                 <div class="chatbox-messages" id="chatbox-messages">
                     <div class="message">
                         <div class="message-avatar">
-                            <img src="./assets/chatbot-avatar.png" />
+                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                         </div>
                         <div class="message-content">
                             Hello! I am ${window.STOR_BOT_CONFIG.botName}, your storage assistant. How can I help you today?
@@ -44,7 +44,7 @@ let isOpen = false;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "./styles.css";
+    link.href = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
     document.head.appendChild(link);
 
     const container = document.createElement("div");
@@ -104,7 +104,7 @@ let isOpen = false;
             document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                 <div class="message" id="message-loading">
                     <div class="message-avatar">
-                        <img src="./assets/chatbot-avatar.png" />
+                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                     </div>
                             
                     <div class="message-content">
@@ -133,7 +133,7 @@ let isOpen = false;
                     document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                         <div class="message">
                             <div class="message-avatar">
-                                <img src="./assets/chatbot-avatar.png" />
+                                <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                             </div>
                             
                             <div class="message-content">
