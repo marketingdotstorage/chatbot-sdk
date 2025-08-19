@@ -119,12 +119,12 @@ let isOpen = false;
                 behavior: "smooth"
             });
 
-            fetch(`chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat`, {
+            fetch(`http://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat`, {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({message: val, last_response_id, company_id: window.STOR_BOT_CONFIG.company_id}),
+                body: JSON.stringify({ message: val, last_response_id, company_id: window.STOR_BOT_CONFIG.company_id }),
             }).then(response => response.json()).then(data => {
                     document.querySelector("#message-loading").remove();
 
