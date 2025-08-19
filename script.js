@@ -119,7 +119,7 @@ let isOpen = false;
                 behavior: "smooth"
             });
 
-            fetch(`http://localhost:4200/api/v1/chatbot/chat`, {
+            fetch(`chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat`, {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json"
