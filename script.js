@@ -124,7 +124,7 @@ let isOpen = false;
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ message: val, last_response_id, company_id: window.STOR_BOT_CONFIG.company_id }),
+                body: JSON.stringify({ message: val, last_response_id, config_id: window.STOR_BOT_CONFIG.config_id }),
             }).then(response => response.json()).then(data => {
                     document.querySelector("#message-loading").remove();
 
