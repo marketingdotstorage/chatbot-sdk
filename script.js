@@ -4,7 +4,7 @@ const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/ch
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
 // const CSS_URL = "./styles.css";
 const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
-const UNIT_URL = "./assets/Unit - NoSize - 5x5.png";
+const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
 
 (function() {
     const chatbotHTML = `
