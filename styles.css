@@ -120,6 +120,37 @@
     background-color: #e6e6e6;
 }
 
+.ms-chatbot-container .chatbox-messages .ms-unit-message {
+    display: flex;
+    align-items: center;
+} 
+
+.ms-chatbot-container .chatbox-messages .message .ms-unit-message.message-content {
+    padding: 0px !important;
+    max-width: 85%;
+}
+
+.ms-chatbot-container .chatbox-messages .ms-unit-message img {
+    width: 70px;
+    height: 70px;
+} 
+
+.ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details div:first-child {
+    font-weight: 550;
+    font-size: 1.04em;
+    margin-bottom: 4px;
+}
+
+.ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details div:last-child {
+    font-size: 0.88em;
+}
+
 .ms-chatbot-container .chatbox-messages .message-user .message-content {
     color: white;
 }
@@ -166,10 +197,10 @@
     var(--_g) 50%  50%,
     var(--_g) 100% 50%;
   background-size: calc(100%/3) 50%;
-  animation: ms-chatbot-l3 1s infinite linear;
+  animation: l3 1s infinite linear;
 }
 
-@keyframes ms-chatbot-l3 {
+@keyframes l3 {
     20%{background-position:0%   0%, 50%  50%,100%  50%}
     40%{background-position:0% 100%, 50%   0%,100%  50%}
     60%{background-position:0%  50%, 50% 100%,100%   0%}
