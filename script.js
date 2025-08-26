@@ -1,5 +1,10 @@
 let last_response_id = "";
 let isOpen = false;
+const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
+// const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
+const CSS_URL = "./styles.css";
+// const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
+const UNIT_URL = "./assets/Unit - NoSize - 5x5.png";
 
 (function() {
     const chatbotHTML = `
@@ -44,13 +49,20 @@ let isOpen = false;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
+    link.href = CSS_URL;
     document.head.appendChild(link);
 
-    const container = document.createElement("div");
-    container.classList.add("ms-chatbot-container")
-    container.innerHTML = chatbotHTML;
-    document.body.appendChild(container);
+    link.onload = () => {
+        const container = document.createElement("div");
+        container.classList.add("ms-chatbot-container")
+        container.innerHTML = chatbotHTML;
+        document.body.appendChild(container);
+
+        initListeners();
+    };
+})()
+
+function initListeners() {
 
     document.querySelector("#ms-chatbot-fab-btn").addEventListener("click", function () {
         isOpen = !isOpen;
@@ -66,7 +78,7 @@ let isOpen = false;
             const chatbox = document.getElementById("ms-chatbox-wrapper");
             chatbox.style.opacity = "0";
             chatbox.style.transform = "translateY(30px)";
-            
+                
             setTimeout(() => {
                 chatbox.classList.remove("show");
             }, 300);
@@ -79,7 +91,7 @@ let isOpen = false;
         const chatbox = document.getElementById("ms-chatbox-wrapper");
         chatbox.style.opacity = "0";
         chatbox.style.transform = "translateY(30px)";
-            
+                
         setTimeout(() => {
             chatbox.classList.remove("show");
         }, 300);
@@ -106,7 +118,7 @@ let isOpen = false;
                     <div class="message-avatar">
                         <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                     </div>
-                            
+                                
                     <div class="message-content">
                         <div class="loader"></div>
                     </div>
@@ -119,28 +131,50 @@ let isOpen = false;
                 behavior: "smooth"
             });
 
-            fetch(`https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat`, {
+            fetch(SERVER_URL, {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ message: val, last_response_id, config_id: window.STOR_BOT_CONFIG.config_id }),
             }).then(response => response.json()).then(data => {
-                    document.querySelector("#message-loading").remove();
+                document.querySelector("#message-loading").remove();
 
-                    last_response_id = data.last_response_id;
+                last_response_id = data.last_response_id;
 
+                if (data.chat && data.chat.length) {
                     document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                         <div class="message">
                             <div class="message-avatar">
                                 <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                             </div>
-                            
+                                    
                             <div class="message-content">
-                                ${data.chat || ""}
+                                ${data.chat}
                             </div>
                         </div>    
                     `);
+                }
+
+                if (data.units && data.units.length) {
+                    data.units.forEach((unit) => {
+                        document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                            <div class="message">
+                                <div class="message-avatar">
+                                    <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                                </div>
+                                        
+                                <div class="message-content ms-unit-message">
+                                    <img src="${UNIT_URL}" />
+                                    <div class="ms-unit-details">
+                                        <div>${unit.size} for $${unit.price}</div>
+                                        <div>${unit.features}</div>
+                                    </div>
+                                </div>
+                            </div>    
+                        `);
+                    })
+                }
 
                 const element = document.querySelector("#chatbox-messages");
                 element.scrollTo({
@@ -150,4 +184,4 @@ let isOpen = false;
             });
         }
     })
-})()
+}
