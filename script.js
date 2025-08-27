@@ -2,9 +2,10 @@ let last_response_id = "";
 let isOpen = false;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css?q=1";
 // const CSS_URL = "./styles.css";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
+
 
 (function() {
     const chatbotHTML = `
@@ -46,6 +47,23 @@ const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
                 </div>
             </div>
     `;
+
+                        //     <div class="message">
+                    //     <div class="message-avatar">
+
+                    //     </div>
+                    //     <div class="message-content pre-prompt" style="border: 1px solid ${window.STOR_BOT_CONFIG.primaryColor};">
+                    //         Show me available units
+                    //     </div>
+                    // </div>
+                    // <div class="message">
+                    //     <div class="message-avatar">
+
+                    //     </div>
+                    //     <div class="message-content pre-prompt" style="border: 1px solid ${window.STOR_BOT_CONFIG.primaryColor};">
+                    //         Show me available units
+                    //     </div>
+                    // </div>
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
