@@ -21,7 +21,7 @@
     bottom: 100px;
     right: 30px;
     width: 350px;
-    max-height: 500px;
+    max-height: 600px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -86,7 +86,7 @@
 
 .ms-chatbot-container input {
     width: 100%;
-    padding: 10px;
+    padding: 15px 12px;
     border: 1px solid #ccc;
     border-radius: 0 0 5px 5px;
     box-sizing: border-box;  
@@ -94,7 +94,7 @@
 }
 
 .ms-chatbot-container .chatbox-messages {
-    height: 350px;
+    height: 400px;
     overflow-y: auto;
     padding: 10px;
     border: 1px solid #ccc;
@@ -104,20 +104,25 @@
 
 .ms-chatbot-container .chatbox-messages .message {
     display: flex;
-    align-items: flex-start;
-}
-
-.ms-chatbot-container .chatbox-messages .message-user {
-    justify-content: flex-end;;
+    align-items: flex-end;
 }
 
 .ms-chatbot-container .chatbox-messages .message .message-content {
     max-width: 70%;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 0.9em;
     margin-bottom: 10px;
     background-color: #e6e6e6;
+    border-bottom-left-radius: 3px;
+}
+
+.ms-chatbot-container .chatbox-messages .message-user {
+    justify-content: flex-end;
+}
+
+.ms-chatbot-container .chatbox-messages .message.ms-pre-prompt {
+    cursor: pointer;
 }
 
 .ms-chatbot-container .chatbox-messages .ms-unit-message {
@@ -153,13 +158,21 @@
 
 .ms-chatbot-container .chatbox-messages .message-user .message-content {
     color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 3px;
 }
 
-.ms-chatbot-container .chatbox-messages img {
+.ms-chatbot-container .chatbox-messages .message-avatar {
+    width: 26px;
+    height: 26px;
+    margin-right: 3px;
+    margin-bottom: 10px;
+}
+
+.ms-chatbot-container .chatbox-messages .message-avatar img {
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    margin-right: 8px;
 }
 
 .ms-chatbot-container .chatbot-fab-wrapper {
@@ -205,4 +218,29 @@
     40%{background-position:0% 100%, 50%   0%,100%  50%}
     60%{background-position:0%  50%, 50% 100%,100%   0%}
     80%{background-position:0%  50%, 50%  50%,100% 100%}
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ms-chatbot-container .chatbox-messages .message-user {
+  justify-content: flex-end;
+  animation: slideUp 0.1s ease-out;
+}
+
+.ms-chatbot-container .message-enter {
+  animation: slideUp 0.1s ease-out;
+}
+
+.ms-chatbot-container .chatbox-messages .message.ms-pre-prompt:hover {
+    filter: brightness(0.85);
+    transition: 0.2s all;
 }

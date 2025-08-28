@@ -1,10 +1,11 @@
 let last_response_id = "";
 let isOpen = false;
+let firstOpen = true;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-// const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css?q=1";
-// const CSS_URL = "./styles.css";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css?q=2";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
+// const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
+// const CSS_URL = "./styles.css";
 
 
 (function() {
@@ -14,7 +15,7 @@ const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
                     <div class="chatbot-avatar">
                         <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                         <div class="chatbot-status">
-                            <div>${window.STOR_BOT_CONFIG.botName}</div>
+                            <div>UnitBot</div>
                             <div>
                                 <div class="status-icon"></div>
                                 <div>Online Now</div>
@@ -27,17 +28,8 @@ const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
                         </svg>
                     </div>
                 </div>
-                <div class="chatbox-messages" id="chatbox-messages">
-                    <div class="message">
-                        <div class="message-avatar">
-                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
-                        </div>
-                        <div class="message-content">
-                            Hello! I am ${window.STOR_BOT_CONFIG.botName}, your storage assistant. How can I help you today?
-                        </div>
-                    </div>
-                </div>
-                <input type="text" id="chatbox-input" placeholder="Reply to ${window.STOR_BOT_CONFIG.botName}" />
+                <div class="chatbox-messages" id="chatbox-messages"></div>
+                <input type="text" id="chatbox-input" placeholder="Reply to UnitBot" />
             </div>
             <div class="chatbot-fab-wrapper">
                 <div class="chatbot-fab" id="ms-chatbot-fab-btn" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor}">
@@ -47,23 +39,6 @@ const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
                 </div>
             </div>
     `;
-
-                        //     <div class="message">
-                    //     <div class="message-avatar">
-
-                    //     </div>
-                    //     <div class="message-content pre-prompt" style="border: 1px solid ${window.STOR_BOT_CONFIG.primaryColor};">
-                    //         Show me available units
-                    //     </div>
-                    // </div>
-                    // <div class="message">
-                    //     <div class="message-avatar">
-
-                    //     </div>
-                    //     <div class="message-content pre-prompt" style="border: 1px solid ${window.STOR_BOT_CONFIG.primaryColor};">
-                    //         Show me available units
-                    //     </div>
-                    // </div>
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -80,11 +55,61 @@ const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
     };
 })()
 
-function initListeners() {
+function addLoader() {
+    if (document.querySelector("#message-loading")) {
+        document.querySelector("#message-loading").remove();
+    }
+    document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+        <div class="message" id="message-loading">
+            <div class="message-avatar">
+                <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+            </div>
+                                
+            <div class="message-content">
+                <div class="loader"></div>
+            </div>
+        </div>    
+    `);
+}
 
+function handleFirstLoad() {
+        addLoader();
+            setTimeout(() => {
+                document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                    <div class="message">
+                        <div class="message-avatar">
+                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        </div>
+                        <div class="message-content">
+                            Hello! I am UnitBot, your storage assistant, I'm here to get you into a storage unit today.
+                        </div>
+                    </div>
+                `);
+                document.querySelector("#message-loading").remove();
+            }, 1000)
+
+            setTimeout(() => {
+                document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                    <div class="message message-user ms-pre-prompt">
+                        <div class="message-avatar">
+
+                        </div>
+                        <div class="message-content" onclick="handlePrePrompt('Show me available units')" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">
+                            Show me available units
+                        </div>
+                    </div>
+                `);
+            }, 1500)        
+}
+
+function handlePrePrompt(prompt) {
+    addMessage(prompt);
+}
+
+function initListeners() {
     document.querySelector("#ms-chatbot-fab-btn").addEventListener("click", function () {
         isOpen = !isOpen;
-
+        if (firstOpen) handleFirstLoad();
         if (isOpen) {
             document.querySelector("#ms-chatbox-wrapper").classList.add("show");
 
@@ -101,6 +126,7 @@ function initListeners() {
                 chatbox.classList.remove("show");
             }, 300);
         }
+        firstOpen = false;
     })
 
     document.querySelector("#ms-close-icon").addEventListener("click", function () {
@@ -121,85 +147,82 @@ function initListeners() {
             const input = document.querySelector("#chatbox-input");
             const val = input.value.trim();
 
-            document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                <div class="message message-user">
-                    <div class="message-content" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor}">
-                        ${val}
-                    </div>
-                </div>    
-            `);
+            addMessage(val, input);
+        }
+    })
+}
 
-            input.value = "";
+function addMessage(message, input) {
+    document.querySelectorAll(".ms-pre-prompt").forEach((el) => {
+        el.remove();
+    })
 
+    document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+        <div class="message message-user">
+            <div class="message-content" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor}">
+                ${message}
+            </div>
+        </div>    
+    `);
+
+    if (input) input.value = "";
+    addLoader();
+
+    const element = document.querySelector("#chatbox-messages");
+    element.scrollTo({
+        top: element.scrollHeight,
+        behavior: "smooth"
+    });
+
+    fetch(SERVER_URL, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: message, last_response_id, config_id: window.STOR_BOT_CONFIG.config_id }),
+    }).then(response => response.json()).then(data => {
+        document.querySelector("#message-loading").remove();
+
+        last_response_id = data.last_response_id;
+
+        if (data.chat && data.chat.length) {
             document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                <div class="message" id="message-loading">
+                <div class="message">
                     <div class="message-avatar">
                         <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                     </div>
-                                
+                                    
                     <div class="message-content">
-                        <div class="loader"></div>
+                        ${data.chat}
                     </div>
                 </div>    
             `);
-
-            const element = document.querySelector("#chatbox-messages");
-            element.scrollTo({
-                top: element.scrollHeight,
-                behavior: "smooth"
-            });
-
-            fetch(SERVER_URL, {
-                method: "POST", 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ message: val, last_response_id, config_id: window.STOR_BOT_CONFIG.config_id }),
-            }).then(response => response.json()).then(data => {
-                document.querySelector("#message-loading").remove();
-
-                last_response_id = data.last_response_id;
-
-                if (data.chat && data.chat.length) {
-                    document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                        <div class="message">
-                            <div class="message-avatar">
-                                <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
-                            </div>
-                                    
-                            <div class="message-content">
-                                ${data.chat}
-                            </div>
-                        </div>    
-                    `);
-                }
-
-                if (data.units && data.units.length) {
-                    data.units.forEach((unit) => {
-                        document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                            <div class="message">
-                                <div class="message-avatar">
-                                    <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
-                                </div>
-                                        
-                                <div class="message-content ms-unit-message">
-                                    <img src="${UNIT_URL}" />
-                                    <div class="ms-unit-details">
-                                        <div>${unit.size} for $${unit.price}</div>
-                                        <div>${unit.features}</div>
-                                    </div>
-                                </div>
-                            </div>    
-                        `);
-                    })
-                }
-
-                const element = document.querySelector("#chatbox-messages");
-                element.scrollTo({
-                    top: element.scrollHeight,
-                    behavior: "smooth"
-                });
-            });
         }
-    })
+
+        if (data.units && data.units.length) {
+            data.units.forEach((unit) => {
+                document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                    <div class="message">
+                        <div class="message-avatar">
+                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        </div>
+                                        
+                        <div class="message-content ms-unit-message">
+                            <img src="${UNIT_URL}" />
+                            <div class="ms-unit-details">
+                                <div>${unit.size} for $${unit.price}</div>
+                                <div>${unit.features}</div>
+                            </div>
+                        </div>
+                    </div>    
+                `);
+            })
+        }
+
+        const element = document.querySelector("#chatbox-messages");
+        element.scrollTo({
+            top: element.scrollHeight,
+            behavior: "smooth"
+        });
+    });
 }
