@@ -156,6 +156,17 @@
     font-size: 0.88em;
 }
 
+.ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details .ms-unit-ctas div {
+    display: inline-block;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    margin-right: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .ms-chatbot-container .chatbox-messages .message-user .message-content {
     color: white;
     border-bottom-left-radius: 15px;
