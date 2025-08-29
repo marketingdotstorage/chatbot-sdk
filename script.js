@@ -2,7 +2,7 @@ let last_response_id = "";
 let isOpen = false;
 let firstOpen = true;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.13/styles.css?q=3";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css?q=1";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
 // const CSS_URL = "./styles.css";
@@ -74,36 +74,46 @@ function addLoader() {
 
 function handleFirstLoad() {
         addLoader();
-            setTimeout(() => {
-                document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                    <div class="message">
-                        <div class="message-avatar">
-                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
-                        </div>
-                        <div class="message-content">
-                            Hello! I am UnitBot, your storage assistant, I'm here to get you into a storage unit today.
-                        </div>
+        setTimeout(() => {
+            document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                <div class="message">
+                    <div class="message-avatar">
+                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
                     </div>
-                `);
-                document.querySelector("#message-loading").remove();
-            }, 1000)
-
-            setTimeout(() => {
-                document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
-                    <div class="message message-user ms-pre-prompt">
-                        <div class="message-avatar">
-
-                        </div>
-                        <div class="message-content" onclick="handlePrePrompt('Show me available units')" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">
-                            Show me available units
-                        </div>
+                    <div class="message-content">
+                        Hello! I am UnitBot, your storage assistant.
                     </div>
-                `);
-            }, 1500)        
-}
+                </div>
+            `);
 
-function handlePrePrompt(prompt) {
-    addMessage(prompt);
+            
+            document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+                <div class="message">
+                    <div class="message-avatar">
+                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                    </div>
+                    <div class="message-content">
+                        What do you need to store?
+                    </div>
+                </div>
+            `);
+            document.querySelector("#message-loading").remove();
+        }, 1000)
+
+        addLoader();
+            
+            // setTimeout(() => {
+            //     document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
+            //         <div class="message message-user ms-pre-prompt">
+            //             <div class="message-avatar">
+
+            //             </div>
+            //             <div class="message-content" onclick="addMessage('Show me available units')" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">
+            //                 Show me available units
+            //             </div>
+            //         </div>
+            //     `);
+            // }, 1500)        
 }
 
 function initListeners() {
@@ -212,6 +222,10 @@ function addMessage(message, input) {
                             <div class="ms-unit-details">
                                 <div>${unit.size} for $${unit.price}</div>
                                 <div>${unit.features}</div>
+                                <div class="ms-unit-ctas">
+                                    ${unit.rent_url ? `<a href="${unit.rent_url}" target="_blank"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Rent Now</div></a>` : ""}
+                                    ${unit.reserve_url ? `<a href="${unit.reserve_url}" target="_blank"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Reserve</div></a>` : ""}
+                                </div>
                             </div>
                         </div>
                     </div>    
