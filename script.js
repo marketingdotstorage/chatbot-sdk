@@ -2,7 +2,7 @@ let last_response_id = "";
 let isOpen = false;
 let firstOpen = true;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.17/styles.css?q=1";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.19/styles.css?q=1";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
 const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/unitbot.png";
