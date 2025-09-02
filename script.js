@@ -2,7 +2,7 @@ let last_response_id = "";
 let isOpen = false;
 let firstOpen = true;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.20/styles.css?q=1";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.21/styles.css?q=1";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
 const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/unitbot.png";
@@ -15,7 +15,7 @@ const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
                     <div class="chatbot-avatar">
                         <img src="${LOGO_URL}" />
                         <div class="chatbot-status">
-                            <div>UnitBot</div>
+                            <div>UnitBot <span class="beta-badge">BETA</span></div>
                             <div>
                                 <div class="status-icon"></div>
                                 <div>Online Now</div>
@@ -50,6 +50,7 @@ const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
         container.classList.add("ms-chatbot-container")
         container.innerHTML = chatbotHTML;
         document.body.appendChild(container);
+        handleFabClick();
 
         initListeners();
     };
@@ -116,28 +117,30 @@ function handleFirstLoad() {
             // }, 1500)        
 }
 
-function initListeners() {
-    document.querySelector("#ms-chatbot-fab-btn").addEventListener("click", function () {
-        isOpen = !isOpen;
-        if (firstOpen) handleFirstLoad();
-        if (isOpen) {
-            document.querySelector("#ms-chatbox-wrapper").classList.add("show");
+function handleFabClick() {
+    isOpen = !isOpen;
+    if (firstOpen) handleFirstLoad();
+    if (isOpen) {
+        document.querySelector("#ms-chatbox-wrapper").classList.add("show");
 
-            setTimeout(() => {
-                document.querySelector("#ms-chatbox-wrapper").style.opacity = "1";
-                document.querySelector("#ms-chatbox-wrapper").style.transform = "translateY(0)";
-            }, 10);
-        } else {
-            const chatbox = document.getElementById("ms-chatbox-wrapper");
-            chatbox.style.opacity = "0";
-            chatbox.style.transform = "translateY(30px)";
+        setTimeout(() => {
+            document.querySelector("#ms-chatbox-wrapper").style.opacity = "1";
+            document.querySelector("#ms-chatbox-wrapper").style.transform = "translateY(0)";
+        }, 10);
+    } else {
+        const chatbox = document.getElementById("ms-chatbox-wrapper");
+        chatbox.style.opacity = "0";
+        chatbox.style.transform = "translateY(30px)";
                 
-            setTimeout(() => {
-                chatbox.classList.remove("show");
-            }, 300);
-        }
-        firstOpen = false;
-    })
+        setTimeout(() => {
+            chatbox.classList.remove("show");
+        }, 300);
+    }
+    firstOpen = false;
+}
+
+function initListeners() {
+    document.querySelector("#ms-chatbot-fab-btn").addEventListener("click", handleFabClick)
 
     document.querySelector("#ms-close-icon").addEventListener("click", function () {
         isOpen = false;
