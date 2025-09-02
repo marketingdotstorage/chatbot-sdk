@@ -1,19 +1,19 @@
 let last_response_id = "";
 let isOpen = false;
 let firstOpen = true;
-const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.16/styles.css?q=1";
+// const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
+// const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.17/styles.css?q=1";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
-// const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
-// const CSS_URL = "./styles.css";
-
+const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
+const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/unitbot.png";
+const CSS_URL = "./styles.css";
 
 (function() {
     const chatbotHTML = `
             <div class="chatbox-box" id="ms-chatbox-wrapper">
                 <div class="chatbox-header" style="background-color: ${window.STOR_BOT_CONFIG.primaryColor}">
                     <div class="chatbot-avatar">
-                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        <img src="${LOGO_URL}" />
                         <div class="chatbot-status">
                             <div>UnitBot</div>
                             <div>
@@ -62,7 +62,7 @@ function addLoader() {
     document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
         <div class="message" id="message-loading">
             <div class="message-avatar">
-                <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                <img src="${LOGO_URL}" />
             </div>
                                 
             <div class="message-content">
@@ -78,7 +78,7 @@ function handleFirstLoad() {
             document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                 <div class="message">
                     <div class="message-avatar">
-                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        <img src="${LOGO_URL}" />
                     </div>
                     <div class="message-content">
                         Hello! I am UnitBot, your storage assistant.
@@ -90,7 +90,7 @@ function handleFirstLoad() {
             document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                 <div class="message">
                     <div class="message-avatar">
-                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        <img src="${LOGO_URL}" />
                     </div>
                     <div class="message-content">
                         What do you need to store?
@@ -199,7 +199,7 @@ function addMessage(message, input) {
             document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                 <div class="message">
                     <div class="message-avatar">
-                        <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                        <img src="${LOGO_URL}" />
                     </div>
                                     
                     <div class="message-content">
@@ -214,7 +214,7 @@ function addMessage(message, input) {
                 document.querySelector("#chatbox-messages").insertAdjacentHTML("beforeend", `
                     <div class="message">
                         <div class="message-avatar">
-                            <img src="https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/chatbot-avatar.png" />
+                            <img src="${LOGO_URL}" />
                         </div>
                                         
                         <div class="message-content ms-unit-message">

@@ -50,13 +50,14 @@
 .ms-chatbot-container .chatbot-avatar {
     display: flex;
     align-items: center;
+    padding: 0px;
+    border-radius: 50%;
 }
 
 .ms-chatbot-container .chatbot-avatar img {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 10px;   
 }
 
 .ms-chatbot-container .chatbot-status div:last-child {
@@ -156,6 +157,10 @@
     font-size: 0.88em;
 }
 
+.ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details .ms-unit-ctas {
+    margin-top: 6px;
+}
+
 .ms-chatbot-container .chatbox-messages .ms-unit-message .ms-unit-details .ms-unit-ctas div {
     display: inline-block;
     color: white;
@@ -176,14 +181,14 @@
 .ms-chatbot-container .chatbox-messages .message-avatar {
     width: 26px;
     height: 26px;
-    margin-right: 3px;
+    margin-right: 5px;
     margin-bottom: 10px;
 }
 
 .ms-chatbot-container .chatbox-messages .message-avatar img {
     width: 26px;
     height: 26px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 
 .ms-chatbot-container .chatbot-fab-wrapper {
