@@ -2,7 +2,7 @@ let last_response_id = "";
 let isOpen = false;
 let firstOpen = true;
 const SERVER_URL = "https://chatbot-api-production-860e.up.railway.app/api/v1/chatbot/chat";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.21/styles.css?q=1";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@0.9.22/styles.css?q=1";
 const UNIT_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 5x5.png";
 // const SERVER_URL = "http://localhost:4200/api/v1/chatbot/chat";
 const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/unitbot.png";
@@ -50,8 +50,11 @@ const LOGO_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@ma
         container.classList.add("ms-chatbot-container")
         container.innerHTML = chatbotHTML;
         document.body.appendChild(container);
-        handleFabClick();
 
+        if (window.location.pathname !== "/checkout") {
+            handleFabClick();
+        }
+        
         initListeners();
     };
 })()
@@ -82,7 +85,7 @@ function handleFirstLoad() {
                         <img src="${LOGO_URL}" />
                     </div>
                     <div class="message-content">
-                        Hello! I am UnitBot, your storage assistant.
+                        Hello! I am UnitBot, your storage assistant. I'm here to get you into the best storage unit today.
                     </div>
                 </div>
             `);
@@ -226,8 +229,8 @@ function addMessage(message, input) {
                                 <div>${unit.size} for $${unit.price}</div>
                                 <div>${unit.features}</div>
                                 <div class="ms-unit-ctas">
-                                    ${unit.rent_url ? `<a href="${unit.rent_url}" target="_blank"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Rent Now</div></a>` : ""}
-                                    ${unit.reserve_url ? `<a href="${unit.reserve_url}" target="_blank"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Reserve</div></a>` : ""}
+                                    ${unit.rent_url ? `<a href="${unit.rent_url}"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Rent Now</div></a>` : ""}
+                                    ${unit.reserve_url ? `<a href="${unit.reserve_url}"><div style="background-color: ${window.STOR_BOT_CONFIG.primaryColor};">Reserve</div></a>` : ""}
                                 </div>
                             </div>
                         </div>
