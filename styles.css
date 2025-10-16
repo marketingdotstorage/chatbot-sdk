@@ -268,3 +268,22 @@
     filter: brightness(0.85);
     transition: 0.2s all;
 }
+
+.ms-chatbot-container .chatbox-messages .ms-facility-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ms-chatbot-container .chatbox-messages .message .ms-facility-message.message-content {
+    width: 85%;
+}
+
+.ms-chatbot-container .chatbox-messages .ms-facility-message .address {
+    font-size: 0.95em;
+    color: gray;
+}
+
+.ms-chatbot-container .chatbox-messages .ms-facility-message .select-icon {
+    cursor: pointer;
+}
