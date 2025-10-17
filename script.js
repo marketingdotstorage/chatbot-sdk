@@ -3,7 +3,7 @@ let isOpen = false;
 let firstOpen = true;
 let chat_config = {};
 
-// const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css?q=1";
+// const CSS_URL = "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/styles.css";
 const CSS_URL = "http://localhost:5500/styles.css";
 const SERVER_URL = window.UNIT_BOT_CONFIG.server_url || "https://chatbot-api-production-860e.up.railway.app/api/v1";
 let disabled = true;
@@ -14,7 +14,8 @@ const imgMap = {
     "10x10": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 10x10.png",
     "10x15": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 10x15.png",
     "10x20": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 10x20.png",
-    "10x30": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 10x30.png"
+    "10x30": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - 10x30.png",
+    "vehiclexstorage": "https://cdn.jsdelivr.net/gh/marketingdotstorage/chatbot-sdk@main/assets/Unit - NoSize - vehicle.png",
 };
 
 (function() {
@@ -38,7 +39,10 @@ const imgMap = {
                     </div>
                 </div>
                 <div class="chatbox-messages" id="chatbox-messages"></div>
-                <input type="text" id="chatbox-input" placeholder="Reply to UnitBot" />
+                <div class="chatbot-send">
+                    <input type="text" id="chatbox-input" placeholder="Reply to UnitBot" />
+                    <button id="ms-send-btn" style="background-color: ${window.UNIT_BOT_CONFIG.primaryColor}">Send</button>
+                </div>
             </div>
             <div class="chatbot-fab-wrapper">
                 <div class="chatbot-fab" id="ms-chatbot-fab-btn" style="background-color: ${window.UNIT_BOT_CONFIG.primaryColor}">
@@ -138,26 +142,27 @@ function handleFirstLoad() {
 function handleFabClick() {
     isOpen = !isOpen;
     if (firstOpen) handleFirstLoad();
-    if (isOpen) {
-        document.querySelector("#ms-chatbox-wrapper").classList.add("show");
+    
+    const chatbox = document.getElementById("ms-chatbox-wrapper");
 
-        setTimeout(() => {
-            document.querySelector("#ms-chatbox-wrapper").style.opacity = "1";
-            document.querySelector("#ms-chatbox-wrapper").style.transform = "translateY(0)";
-        }, 10);
+    if (isOpen) {
+        chatbox.style.display = "block";
+        chatbox.style.opacity = "";
+        chatbox.style.transform = "";
+        void chatbox.offsetWidth;
+        chatbox.classList.add("show");
     } else {
-        const chatbox = document.getElementById("ms-chatbox-wrapper");
-        chatbox.style.opacity = "0";
-        chatbox.style.transform = "translateY(30px)";
+        chatbox.classList.remove("show");
                 
         setTimeout(() => {
-            chatbox.classList.remove("show");
+            chatbox.style.display = "none";
         }, 300);
     }
     firstOpen = false;
 }
 
 function initListeners() {
+    document.getElementById("ms-chatbox-wrapper").style.display = "none";
     document.querySelector("#ms-chatbot-fab-btn").addEventListener("click", handleFabClick)
 
     document.querySelector("#ms-close-icon").addEventListener("click", function () {
@@ -169,6 +174,7 @@ function initListeners() {
                 
         setTimeout(() => {
             chatbox.classList.remove("show");
+            chatbox.style.display = "none";
         }, 300);
     })
 
@@ -178,8 +184,15 @@ function initListeners() {
             const input = document.querySelector("#chatbox-input");
             const val = input.value.trim();
 
-            addMessage(val, input);
+            if (val.length) addMessage(val, input);
         }
+    })
+
+    document.querySelector("#ms-send-btn").addEventListener("click", function() {
+        const input = document.querySelector("#chatbox-input");
+        const val = input.value.trim();
+
+        if (val.length) addMessage(val, input);
     })
 }
 
